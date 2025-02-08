@@ -3,6 +3,7 @@ package com.email.writer.service;
 import com.email.writer.model.EmailModel;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
@@ -21,11 +22,14 @@ public class EmailWriterService {
     @Value("${gemini.key}")
     private String API_KEY;
 
-    private final WebClient.Builder webclintBuilder;
+   // private final WebClient.Builder webclintBuilder;
 
-    public EmailWriterService(WebClient.Builder webclintBuilder) {
-        this.webclintBuilder = webclintBuilder;
-    }
+    @Autowired
+    private WebClient.Builder webclintBuilder;
+
+//    public EmailWriterService(WebClient.Builder webclintBuilder) {
+//        this.webclintBuilder = webclintBuilder;
+//    }
 
     private JsonNode getAiResponse(String textToSend) {
         WebClient webClient = webclintBuilder.baseUrl(GEMINI_URI+API_KEY).build();
